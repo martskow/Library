@@ -29,7 +29,7 @@ public class SecurityConfig {
                         authorizationManagerRequestMatcherRegistry ->
                                 authorizationManagerRequestMatcherRegistry
                                         .requestMatchers("/login").permitAll()
-                                        .requestMatchers("/book").hasAnyRole("ADMIN", "LIBRARIAN", "USER")
+                                        .requestMatchers("/book/getAll").hasAnyRole("ADMIN", "LIBRARIAN", "USER")
                                         .requestMatchers("/book/add").hasAnyRole("ADMIN", "LIBRARIAN")
                                         .requestMatchers("/book/delete").hasAnyRole("ADMIN", "LIBRARIAN")
                                         .requestMatchers("/user/add").hasAnyRole("ADMIN", "LIBRARIAN")

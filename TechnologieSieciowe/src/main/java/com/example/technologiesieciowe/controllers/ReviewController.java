@@ -25,17 +25,32 @@ public class ReviewController {
     }
 
     @GetMapping("/getAll")
+    @ResponseStatus(code = HttpStatus.OK)
     public @ResponseBody Iterable<ReviewEntity> getAllBooks(){
         return reviewService.getAll();
     }
 
     @GetMapping("/getOne/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
     public ReviewEntity getOne (@PathVariable Integer id) {
         return reviewService.getOne(id);
     }
 
     @DeleteMapping("/delete/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
     public void delete(@PathVariable Integer id) {
+
         reviewService.delete(id);
+    }
+
+    @GetMapping("/getByBook/{bookId}")
+    public Iterable<ReviewEntity> getReviewsByBook(@PathVariable Integer bookId) {
+        return reviewService.getReviewsByBook(bookId);
+    }
+
+    @PutMapping("/edit/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public ReviewEntity editReview(@PathVariable Integer id, @RequestBody ReviewEntity editedReview) {
+        return reviewService.editReview(id, editedReview);
     }
 }

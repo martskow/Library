@@ -7,20 +7,20 @@ import jakarta.persistence.*;
 public class BookDetailsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "BookDetailId")
+    @Column(name = "bookdetail_id")
     private Integer bookDetailId;
 
     @OneToOne
-    @JoinColumn(name = "Id")
+    @JoinColumn(name = "book_id")
     private BookEntity book;
 
-    @Column(name = "Genre")
+    @Column(name = "genre")
     private String genre;
 
-    @Column(name = "Summary", length = 1000)
+    @Column(name = "summary", length = 1000)
     private String summary;
 
-    @Column(name = "CoverImageURL")
+    @Column(name = "cover_imageurl")
     private String coverImageURL;
 
     public Integer getBookDetailId() {

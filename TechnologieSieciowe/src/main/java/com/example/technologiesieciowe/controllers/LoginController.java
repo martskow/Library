@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.naming.AuthenticationException;
@@ -22,6 +23,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
+    @ResponseStatus(code = HttpStatus.ACCEPTED)
     public ResponseEntity<String> login(@RequestBody LoginForm loginForm) throws AuthenticationException {
         String token = loginService.userLogin(loginForm);
         if(token == null) {

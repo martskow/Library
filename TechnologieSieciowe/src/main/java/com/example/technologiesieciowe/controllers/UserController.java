@@ -22,25 +22,27 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    //@PreAuthorize("hasAnyRole('ROLE_LIBRARIAN', 'ROLE_ADMIN')")
-    @PreAuthorize("permitAll()")
     @ResponseStatus(code = HttpStatus.CREATED)
     public UserEntity addUser(@RequestBody UserEntity user){
+
         return userService.addUser(user);
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_LIBRARIAN', 'ROLE_ADMIN')")
+    @ResponseStatus(code = HttpStatus.OK)
     public void delete(@PathVariable Integer id) {
+
         userService.delete(id);
     }
 
     @GetMapping("/getAll")
+    @ResponseStatus(code = HttpStatus.OK)
     public @ResponseBody Iterable<UserEntity> getAllBooks(){
         return userService.getAll();
     }
 
     @GetMapping("/getOne/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
     public UserEntity getOne (@PathVariable Integer id) {
         return userService.getOne(id);
     }

@@ -11,68 +11,27 @@ import java.util.Date;
 public class LoanEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "LoanId")
+    @Column(name = "loan_id")
     private Integer LoanId;
 
     @ManyToOne
-    @JoinColumn(name = "BookID")
+    @JoinColumn(name = "book_id", nullable = false)
     private BookEntity book;
 
     @ManyToOne
-    @JoinColumn(name = "UserID")
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
     @Basic
-    @Column(name = "LoanDate")
+    @Column(name = "loan_date", nullable = false)
     private String loanDate;
 
-    @Column(name = "DueDate")
+    @Column(name = "due_date", nullable = false)
     private String dueDate;
 
-    @Column(name = "ReturnDate")
+    @Column(name = "return_date")
     private String returnDate;
-//
-//    public LoanEntity() {
-//        setDate(loanDate, "loanDate");
-//        setDate(dueDate, "dueDate");
-//        if (returnDate != null) {
-//            setDate(returnDate, "returnDate");
-//        }
-//        if (!isValidLoanDate(loanDate, dueDate)) {
-//            throw new IllegalArgumentException("Loan date must be before or equal to due date.");
-//        }
-//    }
-//
-//    public void setDate(String date, String typeOfDate) {
-//        if (isValidDateFormat(date)) {
-//            if ("loanDate".equals(typeOfDate)) {
-//                this.loanDate = date;
-//            } else if ("dueDate".equals(typeOfDate)) {
-//                this.dueDate = date;
-//            } else if ("returnDate".equals(typeOfDate)) {
-//                this.returnDate = date;
-//            }
-//        } else {
-//            throw new IllegalArgumentException("Invalid date format. Please use format DD-MM-YYYY");
-//        }
-//    }
-//
-//    private boolean isValidDateFormat(String date) {
-//        String regex = "\\d{2}-\\d{2}-\\d{4}";
-//        return date.matches(regex);
-//    }
-//
-//    private boolean isValidLoanDate(String loanDate, String dueDate) {
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-//        try {
-//            Date loanDateObj = dateFormat.parse(loanDate);
-//            Date dueDateObj = dateFormat.parse(dueDate);
-//            return !loanDateObj.after(dueDateObj);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
+
 
     public Integer getLoanId() {
         return LoanId;

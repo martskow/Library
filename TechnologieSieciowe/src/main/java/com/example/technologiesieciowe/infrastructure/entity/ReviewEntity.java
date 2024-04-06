@@ -6,45 +6,29 @@ import jakarta.persistence.*;
 public class ReviewEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ReviewID")
+    @Column(name = "review_id")
     private Integer reviewId;
 
     @ManyToOne
-    @JoinColumn(name = "BookID")
+    @JoinColumn(name = "book_id", nullable = false)
     private BookEntity book;
 
     @ManyToOne
-    @JoinColumn(name = "UserID")
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
     @Basic
-    @Column(name = "Rating")
-    private int rating;
+    @Column(name = "rating", nullable = false)
+    private Integer rating;
 
     @Basic
-    @Column(name = "Comment")
+    @Column(name = "comment")
     private String comment;
 
     @Basic
-    @Column(name = "ReviewDate")
+    @Column(name = "review_date", nullable = false)
     private String reviewDate;
 
-//    public ReviewEntity () {
-//        setDate(reviewDate);
-//    }
-//
-//    public void setDate(String date) {
-//        if (isValidDateFormat(date)) {
-//            this.reviewDate = reviewDate;
-//        } else {
-//            throw new IllegalArgumentException("Invalid date format. Please use format DD-MM-YYYY");
-//        }
-//    }
-//
-//    private boolean isValidDateFormat(String date) {
-//        String regex = "\\d{2}-\\d{2}-\\d{4}";
-//        return date.matches(regex);
-//    }
 
     public Integer getReviewId() {
         return reviewId;
@@ -70,11 +54,11 @@ public class ReviewEntity {
         this.user = user;
     }
 
-    public int getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 

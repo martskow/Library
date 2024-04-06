@@ -17,29 +17,29 @@ public class BookEntity {
     private List<ReviewEntity> reviews;
 
     @Basic
-    @Column(name = "isbn", unique = true)
+    @Column(name = "isbn", unique = true, nullable = false)
     private String isbn;
     @Basic
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
     @Basic
-    @Column(name = "author")
+    @Column(name = "author", nullable = false)
     private String author;
     @Basic
     @Column(name = "publisher")
     private String publisher;
     @Basic
-    @Column(name = "publishYear")
+    @Column(name = "publish_year")
     private String publishYear;
     @Basic
-    @Column(name = "availableCopies")
-    private String availableCopies;
+    @Column(name = "available_copies", nullable = false)
+    private Integer availableCopies;
 
-    public String getAvailableCopies() {
+    public Integer getAvailableCopies() {
         return availableCopies;
     }
 
-    public void setAvailableCopies(String availableCopies) {
+    public void setAvailableCopies(Integer availableCopies) {
         this.availableCopies = availableCopies;
     }
 

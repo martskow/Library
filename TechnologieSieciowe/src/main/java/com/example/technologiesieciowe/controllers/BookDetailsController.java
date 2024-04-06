@@ -24,16 +24,19 @@ public class BookDetailsController {
     }
 
     @GetMapping("/getAll")
+    @ResponseStatus(code = HttpStatus.OK)
     public @ResponseBody Iterable<BookDetailsEntity> getAllBooks(){
         return bookDetailsService.getAll();
     }
 
     @GetMapping("/getOne/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
     public BookEntity getOne (@PathVariable Integer id) {
         return bookDetailsService.getOne(id).getBook();
     }
 
     @DeleteMapping("/delete/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
     public void delete(@PathVariable Integer id) {
         bookDetailsService.delete(id);
     }

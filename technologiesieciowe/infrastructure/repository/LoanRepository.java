@@ -7,6 +7,7 @@ import com.example.technologiesieciowe.infrastructure.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.Optional;
 /**
  * Repository interface for accessing and manipulating LoanEntity objects in the database.
@@ -38,4 +39,21 @@ public interface LoanRepository extends JpaRepository<LoanEntity, Integer> {
      * @return An Iterable containing all loans submitted by the given user ID.
      */
     Iterable<LoanEntity> findByUserUserId(Integer userId);
+
+    /**
+     * Retrieves all loans with due dates before the specified date.
+     *
+     * @param date The date used to filter loans.
+     * @return An iterable collection of LoanEntity objects with due dates before the specified date.
+     */
+    Iterable<LoanEntity> findByDueDateBefore(String date);
+
+    /**
+     * Retrieves all loans with due dates before the specified date for a specific user.
+     *
+     * @param date   The date used to filter loans.
+     * @param userId The ID of the user for whom to retrieve loans.
+     * @return An iterable collection of LoanEntity objects with due dates before the specified date for the specified user.
+     */
+    Iterable<LoanEntity> findByDueDateBeforeAndUserUserId(String date, Integer userId);
 }

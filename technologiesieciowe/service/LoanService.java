@@ -255,9 +255,37 @@ public class LoanService {
         String loggedInUserRole = LoginService.getLoggedInUserRole();
         if (!((loggedInUserRole.equals("ROLE_LIBRARIAN") || loggedInUserRole.equals("ROLE_ADMIN")) ||
                 (userId.toString().equals(loggedInUserId)))) {
-            throw UserAccessDeniedException.create("You are not allowed to get information about this place in queue.");
+            throw UserAccessDeniedException.create("You are not allowed to get information about this loans.");
         } else {
             return loanRepository.findByUserUserId(userId);
+        }
+    }
+
+    /**
+     * Retrieves all delayed loans where the due date is before today's date.
+     *
+     * @return An iterable collection of LoanEntity objects representing delayed loans.
+     */
+    public Iterable<LoanEntity> getDelays() {
+        String today = LocalDate.now().toString();
+        return loanRepository.findByDueDateBefore(today);
+    }
+
+    /**
+     * Retrieves all delayed loans where the due date is before today's date.
+     * @param userId the ID of the user
+     * @return An iterable collection of LoanEntity objects representing delayed loans.
+     * @throws UserAccessDeniedException when user is not allowed to get information abitu this loans
+     */
+    public Iterable<LoanEntity> getUserDelays(Integer userId) {
+        String loggedInUserId = LoginService.getLoggedInUserId();
+        String loggedInUserRole = LoginService.getLoggedInUserRole();
+        if (!((loggedInUserRole.equals("ROLE_LIBRARIAN") || loggedInUserRole.equals("ROLE_ADMIN")) ||
+                (userId.toString().equals(loggedInUserId)))) {
+            throw UserAccessDeniedException.create("You are not allowed to get information about this delays.");
+        } else {
+            String today = LocalDate.now().toString();
+            return loanRepository.findByDueDateBeforeAndUserUserId(today, userId);
         }
     }
 }

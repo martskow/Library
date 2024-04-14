@@ -67,5 +67,29 @@ public class BookDetailsController {
         bookDetailsService.delete(id);
     }
 
+    /**
+     * Retrieves a list of BookEntity objects with the specified genre.
+     *
+     * @param genre The genre used to filter books.
+     * @return A list of BookEntity objects matching the specified genre.
+     */
+    @GetMapping("/getByGenre/{genre}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public @ResponseBody List<BookEntity> getByGenre(@PathVariable String genre) {
+        return bookDetailsService.getByGenre(genre);
+    }
+
+    /**
+     * Retrieves a list of book titles and authors with the specified genre.
+     *
+     * @param genre The genre used to filter books.
+     * @return A list of strings containing book titles and authors matching the specified genre.
+     */
+    @GetMapping("/getListByGenre/{genre}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public @ResponseBody List<String> getListByGenre(@PathVariable String genre) {
+        return bookDetailsService.getListByGenre(genre);
+    }
+
 }
 

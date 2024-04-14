@@ -112,4 +112,27 @@ public class LoanController {
     public Iterable<LoanEntity> getAllBookLoans(@PathVariable Integer id) {
         return loanService.getLoanByBook(id);
     }
+
+    /**
+     * Retrieves all delayed loans where the due date is before today's date.
+     *
+     * @return An iterable collection of LoanEntity objects representing delayed loans.
+     */
+    @GetMapping("/getAllDelays")
+    @ResponseStatus(code = HttpStatus.OK)
+    public Iterable<LoanEntity> getDelays() {
+        return loanService.getDelays();
+    }
+
+    /**
+     * Retrieves all delayed loans for a specific user, where the due date is before today's date.
+     *
+     * @param id The ID of the user for whom to retrieve delayed loans.
+     * @return An iterable collection of LoanEntity objects representing delayed loans for the specified user.
+     */
+    @GetMapping("/getUserDelays/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public Iterable<LoanEntity> getUserDelays(@PathVariable Integer id) {
+        return loanService.getUserDelays(id);
+    }
 }

@@ -1,11 +1,8 @@
 package com.example.technologiesieciowe.service;
 
 import com.example.technologiesieciowe.infrastructure.entity.*;
-import com.example.technologiesieciowe.infrastructure.repository.BookDetailsRepository;
 import com.example.technologiesieciowe.infrastructure.repository.QueueRepository;
 import com.example.technologiesieciowe.service.error.FieldRequiredException;
-import com.example.technologiesieciowe.service.error.LoanErrors.LoanNotFoundException;
-import com.example.technologiesieciowe.service.error.LoanErrors.NotAvailableCopiesException;
 import com.example.technologiesieciowe.service.error.QueueErrors.QueueNotFoundException;
 import com.example.technologiesieciowe.service.error.UserErrors.UserAccessDeniedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +74,34 @@ public class QueueService {
             queueRepository.deleteById(id);
         } else {
             throw QueueNotFoundException.create(id.toString());
+        }
+    }
+
+    /**
+     * Retrieves the queue entries for a specific book.
+     *
+     * @param bookId the ID of the book
+     * @return an iterable collection of queue entries for the book
+     */
+    public Iterable<QueueEntity> getQueueByBook(Integer bookId) {
+        return queueRepository.getByBookId(bookId);
+    }
+
+    /**
+     * Retrieves the queue entries for a specific user.
+     * Access is restricted based on user role.
+     *
+     * @param userId the ID of the user
+     * @throws UserAccessDeniedException if the user does not have permission to access the queue
+     */
+    public Iterable<QueueEntity> getQueueByUser(Integer userId) {
+        String loggedInUserId = LoginService.getLoggedInUserId();
+        String loggedInUserRole = LoginService.getLoggedInUserRole();
+        if (!((loggedInUserRole.equals("ROLE_LIBRARIAN") || loggedInUserRole.equals("ROLE_ADMIN")) ||
+                (userId.toString().equals(loggedInUserId)))) {
+            throw UserAccessDeniedException.create("You are not allowed to get information about this place in queue.");
+        } else {
+            return queueRepository.getByUserUserId(userId);
         }
     }
 }

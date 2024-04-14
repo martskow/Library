@@ -5,7 +5,7 @@ import com.example.technologiesieciowe.service.error.BookErrors.BookNotFoundExce
 import com.example.technologiesieciowe.service.error.BookErrors.IsbnAlreadyExistsException;
 import com.example.technologiesieciowe.service.error.LoanArchiveErrors.LoanArchiveNotFoundException;
 import com.example.technologiesieciowe.service.error.LoanErrors.LoanNotFoundException;
-import com.example.technologiesieciowe.service.error.LoanErrors.NotAvailableCopiesException;
+import com.example.technologiesieciowe.service.error.BookErrors.NotAvailableCopiesException;
 import com.example.technologiesieciowe.service.error.QueueErrors.QueueNotFoundException;
 import com.example.technologiesieciowe.service.error.ReviewErrors.RatingOffTheScaleException;
 import com.example.technologiesieciowe.service.error.ReviewErrors.ReviewNotFoundException;
@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.LocalDateTime;
 
+/**
+ * Global exception handler for handling various custom exceptions and returning appropriate error responses.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 

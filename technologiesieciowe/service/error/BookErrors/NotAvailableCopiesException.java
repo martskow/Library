@@ -4,24 +4,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 /**
- * Exception thrown when a book with the same ISBN already exists.
+ * Exception thrown when there are no available copies of a book.
  */
-public class IsbnAlreadyExistsException extends RuntimeException {
+public class NotAvailableCopiesException extends RuntimeException {
     /**
-     * Constructs a new IsbnAlreadyExistsException with the specified detail message.
+     * Constructs a new NotAvailableCopiesException with the specified detail message.
      * @param message The detail message.
      */
-    private IsbnAlreadyExistsException(String message) {
+    private NotAvailableCopiesException(String message) {
         super(message);
     }
 
     /**
      * Creates a ResponseStatusException with a CONFLICT status and the specified detail message.
-     * @param isbn The ISBN number.
+     * @param bookName The name of the book.
      * @return The created ResponseStatusException.
      */
-    public static ResponseStatusException create(String isbn) {
-        IsbnAlreadyExistsException exception = new IsbnAlreadyExistsException(String.format("Book with ISBN number: %s already exists.", isbn));
+    public static ResponseStatusException create(String bookName) {
+        NotAvailableCopiesException exception = new NotAvailableCopiesException(String.format("There are currently no copies of the book %s available", bookName));
         return new ResponseStatusException(HttpStatus.CONFLICT, exception.getMessage(), exception);
     }
 }

@@ -11,17 +11,28 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.naming.AuthenticationException;
-
+/**
+ * Controller class for handling login-related HTTP requests.
+ */
 @RestController
 public class LoginController {
     private final LoginService loginService;
 
+    /**
+     * Constructor injection for LoginController.
+     * @param loginService The LoginService instance to be injected.
+     */
     @Autowired
     public LoginController(LoginService loginService) {
-
         this.loginService = loginService;
     }
 
+    /**
+     * Endpoint for user login.
+     * @param loginForm The LoginForm object containing user login credentials.
+     * @return ResponseEntity containing a token if login is successful, or an error message if not.
+     * @throws AuthenticationException If authentication fails.
+     */
     @PostMapping("/login")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     public ResponseEntity<String> login(@RequestBody LoginForm loginForm) throws AuthenticationException {
@@ -33,4 +44,3 @@ public class LoginController {
         }
     }
 }
-

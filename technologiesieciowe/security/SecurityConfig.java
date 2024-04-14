@@ -12,6 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Configuration class responsible for configuring security settings.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -20,6 +23,13 @@ public class SecurityConfig {
     @Value("${jwt.token.key}")
     private String key;
 
+    /**
+     * Configures security filters and authorization rules and configures authorization rules for various endpoints.
+     *
+     * @param http The HttpSecurity object used to configure security settings.
+     * @return The SecurityFilterChain object.
+     * @throws Exception If an error occurs during configuration.
+     */
     @Bean
     SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
         return http
@@ -44,7 +54,7 @@ public class SecurityConfig {
                                         .requestMatchers("/review/add").hasRole("USER")
                                         .requestMatchers("/review/edit/{id}").hasRole("USER")
                                         .requestMatchers("/review/getAll").hasAnyRole("ADMIN", "LIBRARIAN", "USER")
-                                        .requestMatchers("review/delete/{id}").hasRole("ADMIN")
+                                        .requestMatchers("review/delete/{id}").hasAnyRole("ADMIN", "LIBRARIAN", "USER")
                                         .requestMatchers("/review/getOne/{id}").hasAnyRole("ADMIN", "LIBRARIAN", "USER")
                                         .requestMatchers("/review/getByBook/{bookId}").hasAnyRole("ADMIN", "LIBRARIAN", "USER")
                                         .requestMatchers("/review/getByUser/{userId}").hasAnyRole("ADMIN", "LIBRARIAN", "USER")
@@ -54,6 +64,8 @@ public class SecurityConfig {
                                         .requestMatchers("/loan/getOne/{id}").hasAnyRole("ADMIN", "LIBRARIAN", "USER")
                                         .requestMatchers("/loan/extendDueDate/{id}").hasRole("LIBRARIAN")
                                         .requestMatchers("/loan/returnBook/{id}").hasRole("LIBRARIAN")
+                                        .requestMatchers("/loan/getAllBookLoans/{id}").hasAnyRole("ADMIN","LIBRARIAN")
+                                        .requestMatchers("/loan/getAllUserLoans/{id}").hasAnyRole("ADMIN", "LIBRARIAN", "USER")
                                         .requestMatchers("/loanArchive/delete/{id}").hasRole("ADMIN")
                                         .requestMatchers("/loanArchive/getAll").hasAnyRole("ADMIN", "LIBRARIAN")
                                         .requestMatchers("/loanArchive/getOne/{id}").hasAnyRole("ADMIN", "LIBRARIAN", "USER")
@@ -62,6 +74,8 @@ public class SecurityConfig {
                                         .requestMatchers("/queue/getAll").hasAnyRole("ADMIN", "LIBRARIAN")
                                         .requestMatchers("/queue/getOne/{id}").hasAnyRole("ADMIN", "LIBRARIAN", "USER")
                                         .requestMatchers("/queue/endWaiting/{id}").hasRole("LIBRARIAN")
+                                        .requestMatchers("/queue/getAllBookQueues/{id}").hasAnyRole("ADMIN", "LIBRARIAN")
+                                        .requestMatchers("/queue/getAllUserQueues/{id}").hasAnyRole("ADMIN", "LIBRARIAN", "USER")
                 )
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
